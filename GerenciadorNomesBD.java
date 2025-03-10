@@ -4,9 +4,9 @@ import java.util.List;
 
 public class GerenciadorNomesBD implements GerenciadorNomes {
 
-    private String url = "jdbc:postgresql://<Sua URL do Supabase>"; // ou "jdbc:h2:mem:testdb"
-    private String user = "<Seu Usuário do Supabase>"; // ou "sa" para H2
-    private String password = "<Sua Senha do Supabase>"; // ou "" para H2
+    private String url = "postgresql://postgres:[iKNeZC@3TP_bCSC]@db.juatxdltwmiuocbytvwt.supabase.co:5432/postgres";
+    private String user = "postgres";
+    private String password = "iKNeZC@3TP_bCSC";
 
     public GerenciadorNomesBD(String url, String user, String password){
         this.url = url;
@@ -16,9 +16,9 @@ public class GerenciadorNomesBD implements GerenciadorNomes {
     }
 
     public GerenciadorNomesBD(){
-        this.url = "jdbc:h2:mem:testdb";
-        this.user = "sa";
-        this.password = "";
+        this.url = "jdbc:postgresql://<Sua URL do Supabase>";
+        this.user = "<Seu Usuário do Supabase>";
+        this.password = "<Sua Senha do Supabase>";
         criarTabela();
     }
 
@@ -32,7 +32,6 @@ public class GerenciadorNomesBD implements GerenciadorNomes {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -57,6 +56,31 @@ public class GerenciadorNomesBD implements GerenciadorNomes {
              PreparedStatement pstmt = conn.prepareStatement("INSERT INTO nomes (nome) VALUES (?)")) {
 
             pstmt.setString(1, nome);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void removerNome(String nome) {
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM nomes WHERE nome = ?")) {
+
+            pstmt.setString(1, nome);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void atualizarNome(String nomeAntigo, String nomeNovo) {
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement pstmt = conn.prepareStatement("UPDATE nomes SET nome = ? WHERE nome = ?")) {
+
+            pstmt.setString(1, nomeNovo);
+            pstmt.setString(2, nomeAntigo);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
