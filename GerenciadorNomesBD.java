@@ -4,7 +4,7 @@ import java.util.List;
 
 public class GerenciadorNomesBD implements GerenciadorNomes {
 
-    private String url = "jdbc:postgresql://db.juatxdltwmiuocbytvwt.supabase.co:5432/postgres";
+    private String url = "jdbc:postgresql://db.juatxdltwmiuocbytvwt.supabase.co:5432/postgres?user=postgres&password=[iKNeZC@3TP_bCSC]";
     private String user = "postgres";
     private String password = "iKNeZC@3TP_bCSC";
 
@@ -16,7 +16,7 @@ public class GerenciadorNomesBD implements GerenciadorNomes {
     }
 
     public GerenciadorNomesBD(){
-        this.url = "jdbc:postgresql://db.juatxdltwmiuocbytvwt.supabase.co:5432/postgres";
+        this.url = "jdbc:postgresql://db.juatxdltwmiuocbytvwt.supabase.co:5432/postgres?user=postgres&password=[iKNeZC@3TP_bCSC]";
         this.user = "postgres";
         this.password = "iKNeZC@3TP_bCSC";
         criarTabela();
